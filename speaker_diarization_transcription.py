@@ -157,6 +157,29 @@ class SpeakerTranscriptionDiarization:
         except Exception as e:
             print(f"An error occurred: {e}")
 
+    def run_batch_pipeline(self, input_folder, output_folder, model_size="small"):
+        """
+        Runs the batch processing pipeline for speaker diarization and transcription.
+
+        Args:
+            input_folder (str): Path to the folder containing input audio files.
+            output_folder (str): Path to the folder to save output transcription files.
+            model_size (str): Size of the Whisper model ("small", "medium", "large").
+        """
+        if not os.path.exists(output_folder):
+            os.makedirs(output_folder)
+
+        audio_files = [f for f in os.listdir(input_folder) if f.endswith(('.mp3', '.wav', '.flac'))]
+
+        for audio_file in tqdm(audio_files, desc="Processing audio files"):
+            input_audio_path = os.path.join(input_folder, audio_file)
+            output_file_path = os.path.join(output_folder, os.path.splitext(audio_file)[0] + ".txt")
+
+            print(f"Processing {audio_file}...")
+            self.input_audio_path = input_audio_path
+            self.output_file_path = output_file_path
+            self.run_pipeline(model_size=model_size)
+
 # Example usage:
 # transcription = SpeakerDiarizationTranscription("DE_Podcast.mp3", "Transcribe_output_file.txt", "your_huggingface_token")
 # transcription.run_pipeline()
