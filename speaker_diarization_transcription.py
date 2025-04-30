@@ -6,6 +6,7 @@ import tempfile
 from dotenv import load_dotenv
 import torch
 import subprocess
+from tqdm import tqdm
 
 class SpeakerTranscriptionDiarization:
     def __init__(self, input_audio_path, output_file_path, hf_token):
@@ -56,21 +57,43 @@ class SpeakerTranscriptionDiarization:
     def transcribe(self, diarization):
         full_audio = AudioSegment.from_wav(self.input_audio_path)
         with open(self.output_file_path, "w") as out:
-            for i, (turn, _, speaker) in enumerate(diarization.itertracks(yield_label=True)):
+            for i, (turn, _, speaker) in tqdm(enumerate(diarization.itertracks(yield_label=True)), desc="Transcribing audio", total=len(list(diarization.itertracks(yield_label=True)))):
                 segment = full_audio[turn.start * 1000: turn.end * 1000]  # pydub works in ms
                 with tempfile.NamedTemporaryFile(suffix=".wav", delete=False) as tmp_wav:
                     segment.export(tmp_wav.name, format="wav")
                     transcription = self.whisper_model.transcribe(tmp_wav.name)["text"].strip()
                     os.unlink(tmp_wav.name)  # Clean up
 
-                out.write(f"{turn.start:.1f}s - {turn.end:.1f}s | Speaker {speaker}:\n{transcription}\n\n")
+                out.write(f"Speaker {speaker}: {transcription}\n")
 
         print(f"Diarized transcription written to: {self.output_file_path}")
 
+    def show_processing_animation(self, message, progress, total):
+        import sys
+
+        bar_length = 40
+        filled_length = int(bar_length * progress / total)
+        bar = '=' * filled_length + '-' * (bar_length - filled_length)
+        sys.stdout.write(f'\r{message} [{bar}] {progress}/{total}')
+        sys.stdout.flush()
+
     def run_pipeline(self, model_size="small"):
+        total_steps = 4
+        current_step = 1
+
+        self.show_processing_animation("Converting audio to WAV...", current_step, total_steps)
         self.convert_to_wav()
+        current_step += 1
+
+        self.show_processing_animation("Loading models...", current_step, total_steps)
         self.load_models(model_size=model_size)
+        current_step += 1
+
+        self.show_processing_animation("Running diarization...", current_step, total_steps)
         diarization = self.run_diarization()
+        current_step += 1
+
+        self.show_processing_animation("Transcribing audio...", current_step, total_steps)
         self.transcribe(diarization)
 
 # Example usage:

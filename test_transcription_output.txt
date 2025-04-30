@@ -1,0 +1,99 @@
+0.0s - 2.3s | Speaker SPEAKER_01:
+I'd love to start with these.
+
+2.0s - 3.4s | Speaker SPEAKER_00:
+Ten years of work right there.
+
+3.2s - 6.7s | Speaker SPEAKER_01:
+Someone on your team called these the real life Tony Stark glasses.
+
+6.7s - 7.6s | Speaker SPEAKER_00:
+very hard to make each one.
+
+7.6s - 9.4s | Speaker SPEAKER_01:
+That makes me feel incredibly optimistic.
+
+9.4s - 13.9s | Speaker SPEAKER_00:
+In a world where AI gets smarter and smarter, this is probably going to be the next major platform after phones.
+
+13.9s - 15.9s | Speaker SPEAKER_01:
+I miss hugging my mom.
+
+15.8s - 16.8s | Speaker SPEAKER_00:
+The haptics is hard.
+
+16.8s - 27.6s | Speaker SPEAKER_01:
+How does generative AI change how social media feels? We haven't found the end yet. The average American has fewer friends now than they did 15 years ago. Why do you think that's happening?
+
+20.8s - 21.9s | Speaker SPEAKER_00:
+We haven't found the end yet.
+
+29.8s - 33.0s | Speaker SPEAKER_00:
+I mean, there's a lot going on to unpack there.
+
+33.8s - 39.5s | Speaker SPEAKER_01:
+I'm about to interview Meta CEO Mark Zuckerberg.
+
+33.8s - 35.7s | Speaker SPEAKER_02:
+
+
+39.5s - 40.5s | Speaker SPEAKER_00:
+Zuckerberg
+
+40.5s - 54.0s | Speaker SPEAKER_01:
+There are not that many people with more power over what our future might look like. Nearly half the total human population now uses Meta products. And I just tested some of their new tech that feels like science fiction.
+
+54.7s - 77.2s | Speaker SPEAKER_01:
+This is crazy. Mark Zuckerberg and the team at META are imagining a future that billions of other people might actually end up living in. So my goal for this conversation is to try to figure out what that future really looks like. To paint a picture of the future Mark Zuckerberg is trying to build so that you can decide for yourself what you think of it. Welcome to the first episode of our new series, Huge Conversations.
+
+83.4s - 86.5s | Speaker SPEAKER_00:
+Okay, good to meet you. Yeah, looking forward to it.
+
+85.0s - 85.5s | Speaker SPEAKER_02:
+Yeah.
+
+87.4s - 87.9s | Speaker SPEAKER_01:
+Awesome.
+
+89.3s - 110.5s | Speaker SPEAKER_01:
+I'd love to tell you what my goal is of this conversation. Go for it. So we have a show called Hugh Jiftrue, which is this very optimistic show about science and technology and the potential futures that we can build. And in every episode we're sort of exploring what does it look like if you play a certain technological future out. And so my goal in this conversation is to...
+
+91.9s - 92.2s | Speaker SPEAKER_02:
+Go for it.
+
+97.1s - 97.4s | Speaker SPEAKER_02:
+Yeah
+
+111.7s - 127.7s | Speaker SPEAKER_01:
+try to help people see the future that you're imagining when you're building the products that you and the meta team are building. What are you imagining this looks like in the future? How are you imagining people use this? All of that. Cool. Awesome. So I'd love to start with these.
+
+124.6s - 125.1s | Speaker SPEAKER_02:
+Awesome.
+
+128.0s - 130.2s | Speaker SPEAKER_00:
+Let's do it. 10 years of work right there.
+
+130.5s - 132.8s | Speaker SPEAKER_01:
+I got to demo them a little bit earlier today.
+
+134.6s - 138.4s | Speaker SPEAKER_01:
+I heard someone on your team call these the real-life Tony Stark glasses.
+
+138.6s - 139.4s | Speaker SPEAKER_00:
+We're getting there.
+
+139.6s - 142.0s | Speaker SPEAKER_01:
+But I'd love to just hear in your voice. What are these?
+
+142.7s - 152.5s | Speaker SPEAKER_00:
+Well, these are the first full holographic augmented reality glasses, I think that exist in the world. We've made...
+
+153.2s - 212.5s | Speaker SPEAKER_00:
+I think it's a few thousand or something. Very hard to make each one of these. But this is the culmination of 10 years of research and development that we've done to basically miniaturize all the computing that you need to have glasses, not a headset, but glasses that can put full holograms into the world with a wide field of view. So you can imagine in the future we'd be having a version of this conversation where maybe I or you are not even here. It's like one of us is physically here and the other one is here as a full body hologram. And it's not just a video call. You can actually interact. You can do things. I mean, in the demo we had the ping pong and games and things like that. But you can interact. You can work together. You can play poker, play chess, whatever. Holographic cards, holographic board game. I just think it's going to be wild. It's going to remake so many different.
+
+213.8s - 237.1s | Speaker SPEAKER_00:
+fields that we think about today from how we work and productivity to a lot of things around science, a lot of things around education, entertainment, fun, gaming. But this is just the beginning. This is the first version. It's a prototype version that we've made in order to develop the next version, which is hopefully going to be the consumer one that we sell to a lot of people.
+
+238.0s - 238.9s | Speaker SPEAKER_01:
+Why build this?
+
