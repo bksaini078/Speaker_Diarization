@@ -9,7 +9,27 @@ import subprocess
 from tqdm import tqdm
 
 class SpeakerTranscriptionDiarization:
+    """
+    A class to perform speaker diarization and transcription on audio files.
+
+    Attributes:
+        input_audio_path (str): Path to the input audio file.
+        output_file_path (str): Path to the output transcription file.
+        hf_token (str): Hugging Face token for accessing models.
+        device (torch.device): Device to run the models on (mps, cuda, or cpu).
+        diarization_pipeline (Pipeline): Speaker diarization pipeline.
+        whisper_model (whisper.Model): Whisper model for transcription.
+    """
+
     def __init__(self, input_audio_path, output_file_path, hf_token):
+        """
+        Initializes the SpeakerTranscriptionDiarization class.
+
+        Args:
+            input_audio_path (str): Path to the input audio file.
+            output_file_path (str): Path to the output transcription file.
+            hf_token (str): Hugging Face token for accessing models.
+        """
         self.input_audio_path = input_audio_path
         self.output_file_path = output_file_path
         self.hf_token = hf_token
@@ -23,6 +43,12 @@ class SpeakerTranscriptionDiarization:
         self.whisper_model = None
 
     def convert_to_wav(self, output_path="podcast.wav"):
+        """
+        Converts the input audio file to mono 16kHz WAV format.
+
+        Args:
+            output_path (str): Path to save the converted audio file.
+        """
         if os.path.exists(output_path):
             os.remove(output_path)
             print(f"Removed existing file: {output_path}")
@@ -43,6 +69,12 @@ class SpeakerTranscriptionDiarization:
             print("Error during audio conversion:", e)
 
     def load_models(self, model_size="small"):
+        """
+        Loads the speaker diarization and Whisper models.
+
+        Args:
+            model_size (str): Size of the Whisper model ("small", "medium", "large").
+        """
         load_dotenv()
         self.diarization_pipeline = Pipeline.from_pretrained(
             "pyannote/speaker-diarization",
@@ -52,9 +84,21 @@ class SpeakerTranscriptionDiarization:
         self.whisper_model = whisper.load_model(model_size, device="cpu")
 
     def run_diarization(self):
+        """
+        Runs speaker diarization on the input audio file.
+
+        Returns:
+            diarization: The diarization result.
+        """
         return self.diarization_pipeline(self.input_audio_path)
 
     def transcribe(self, diarization):
+        """
+        Transcribes each speaker's turn using the Whisper model.
+
+        Args:
+            diarization: The diarization result.
+        """
         full_audio = AudioSegment.from_wav(self.input_audio_path)
         with open(self.output_file_path, "w") as out:
             for i, (turn, _, speaker) in tqdm(enumerate(diarization.itertracks(yield_label=True)), desc="Transcribing audio", total=len(list(diarization.itertracks(yield_label=True)))):
@@ -69,6 +113,14 @@ class SpeakerTranscriptionDiarization:
         print(f"Diarized transcription written to: {self.output_file_path}")
 
     def show_processing_animation(self, message, progress, total):
+        """
+        Displays a processing animation in the console.
+
+        Args:
+            message (str): The message to display.
+            progress (int): The current progress.
+            total (int): The total progress.
+        """
         import sys
 
         bar_length = 40
@@ -78,23 +130,32 @@ class SpeakerTranscriptionDiarization:
         sys.stdout.flush()
 
     def run_pipeline(self, model_size="small"):
+        """
+        Runs the complete pipeline for speaker diarization and transcription.
+
+        Args:
+            model_size (str): Size of the Whisper model ("small", "medium", "large").
+        """
         total_steps = 4
         current_step = 1
 
-        self.show_processing_animation("Converting audio to WAV...", current_step, total_steps)
-        self.convert_to_wav()
-        current_step += 1
+        try:
+            self.show_processing_animation("Converting audio to WAV...", current_step, total_steps)
+            self.convert_to_wav()
+            current_step += 1
 
-        self.show_processing_animation("Loading models...", current_step, total_steps)
-        self.load_models(model_size=model_size)
-        current_step += 1
+            self.show_processing_animation("Loading models...", current_step, total_steps)
+            self.load_models(model_size=model_size)
+            current_step += 1
 
-        self.show_processing_animation("Running diarization...", current_step, total_steps)
-        diarization = self.run_diarization()
-        current_step += 1
+            self.show_processing_animation("Running diarization...", current_step, total_steps)
+            diarization = self.run_diarization()
+            current_step += 1
 
-        self.show_processing_animation("Transcribing audio...", current_step, total_steps)
-        self.transcribe(diarization)
+            self.show_processing_animation("Transcribing audio...", current_step, total_steps)
+            self.transcribe(diarization)
+        except Exception as e:
+            print(f"An error occurred: {e}")
 
 # Example usage:
 # transcription = SpeakerDiarizationTranscription("DE_Podcast.mp3", "Transcribe_output_file.txt", "your_huggingface_token")
