@@ -6,6 +6,27 @@ import tempfile
 from dotenv import load_dotenv
 import torch
 
+import subprocess
+
+def convert_to_wav(input_path, output_path="podcast.wav"):
+    command = [
+        "ffmpeg",
+        "-i", input_path,
+        "-ac", "1",          # mono audio
+        "-ar", "16000",      # 16kHz sample rate
+        output_path
+    ]
+
+    try:
+        subprocess.run(command, check=True)
+        print(f"Converted audio saved as: {output_path}")
+    except subprocess.CalledProcessError as e:
+        print("Error during audio conversion:", e)
+
+# Example usage:
+convert_to_wav("DE_Podcast.mp3")
+
+
 # --- Config ---
 load_dotenv()
 
@@ -15,8 +36,8 @@ device = torch.device("mps" if torch.backends.mps.is_available() else "cpu")
 
 
 HUGGINGFACE_TOKEN = os.getenv("HF_TOKEN")
-AUDIO_FILE = "TheFutureMarkZuckerbergIsTryingToBuild.wav"  # mono 16kHz wav
-OUTPUT_FILE = "TheFutureMarkZuckerbergIsTryingToBuild.txt"
+AUDIO_FILE = "podcast.wav"#"TheFutureMarkZuckerbergIsTryingToBuild.wav"  # mono 16kHz wav
+OUTPUT_FILE = "Transcribe_output_file.txt"
 
 # --- Load models ---
 diarization_pipeline = Pipeline.from_pretrained(
