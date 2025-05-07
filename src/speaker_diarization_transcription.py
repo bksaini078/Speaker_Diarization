@@ -81,7 +81,7 @@ class SpeakerTranscriptionDiarization:
             use_auth_token=self.hf_token
         )
         self.diarization_pipeline.to(self.device)
-        self.whisper_model = whisper.load_model(model_size, device="cpu")
+        self.whisper_model = whisper.load_model(model_size, device="cpu") # need to change here while running in linux system
 
     def run_diarization(self):
         """
@@ -180,6 +180,4 @@ class SpeakerTranscriptionDiarization:
             self.output_file_path = output_file_path
             self.run_pipeline(model_size=model_size)
 
-# Example usage:
-# transcription = SpeakerDiarizationTranscription("DE_Podcast.mp3", "Transcribe_output_file.txt", "your_huggingface_token")
-# transcription.run_pipeline()
+

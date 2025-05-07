@@ -46,7 +46,7 @@ This project provides a Python class for speaker diarization and transcription o
 
    ```python
    import os
-   from speaker_diarization_transcription import SpeakerTranscriptionDiarization
+   from src.speaker_diarization_transcription import SpeakerTranscriptionDiarization
 
    input_audio_path = "path/to/your/audio/file.mp3"
    output_file_path = "path/to/your/output/file.txt"
@@ -76,14 +76,3 @@ if __name__ == "__main__":
     main()
 ```
 
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
-## Contributing
-
-Contributions are welcome! Please open an issue or submit a pull request.
-
-## Contact
-
-For any questions or feedback, please contact [your email](mailto:your.email@example.com).
