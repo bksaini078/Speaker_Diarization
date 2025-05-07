@@ -129,23 +129,24 @@ class SpeakerTranscriptionDiarization:
         sys.stdout.write(f'\r{message} [{bar}] {progress}/{total}')
         sys.stdout.flush()
 
-    def run_pipeline(self, model_size="small"):
+    def run_pipeline(self, whisper_model_size="small", mp3_to_wav=True, output_wav_file="output.wav"):
         """
         Runs the complete pipeline for speaker diarization and transcription.
 
         Args:
-            model_size (str): Size of the Whisper model ("small", "medium", "large").
+            whisper_model_size (str): Size of the Whisper model ("small", "medium", "large").
         """
         total_steps = 4
         current_step = 1
 
         try:
             self.show_processing_animation("Converting audio to WAV...", current_step, total_steps)
-            self.convert_to_wav()
-            current_step += 1
+            if mp3_to_wav:
+                self.convert_to_wav(output_path=output_wav_file)
+                current_step += 1
 
             self.show_processing_animation("Loading models...", current_step, total_steps)
-            self.load_models(model_size=model_size)
+            self.load_models(model_size=whisper_model_size)
             current_step += 1
 
             self.show_processing_animation("Running diarization...", current_step, total_steps)
@@ -157,7 +158,7 @@ class SpeakerTranscriptionDiarization:
         except Exception as e:
             print(f"An error occurred: {e}")
 
-    def run_batch_pipeline(self, input_folder, output_folder, model_size="small"):
+    def run_batch_pipeline(self, input_folder, output_folder, whisper_model_size="small"):
         """
         Runs the batch processing pipeline for speaker diarization and transcription.
 
@@ -169,7 +170,7 @@ class SpeakerTranscriptionDiarization:
         if not os.path.exists(output_folder):
             os.makedirs(output_folder)
 
-        audio_files = [f for f in os.listdir(input_folder) if f.endswith(('.mp3', '.wav', '.flac'))]
+        audio_files = [f for f in os.listdir(input_folder) if f.endswith(('.mp3', '.wav'))]
 
         for audio_file in tqdm(audio_files, desc="Processing audio files"):
             input_audio_path = os.path.join(input_folder, audio_file)
@@ -178,6 +179,9 @@ class SpeakerTranscriptionDiarization:
             print(f"Processing {audio_file}...")
             self.input_audio_path = input_audio_path
             self.output_file_path = output_file_path
-            self.run_pipeline(model_size=model_size)
+            if audio_file.endswith('.mp3'):
+                self.run_pipeline(model_size=whisper_model_size,mp3_to_wav=True)
+            else:
+                self.run_pipeline(whisper_model_size=whisper_model_size,mp3_to_wav=False)
 
 
